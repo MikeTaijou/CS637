@@ -1,0 +1,17 @@
+
+cpu0: starting xv6
+
+mem = 1048576
+cpu0: mpmain
+cpu0: scheduling
+init: starting sh
+$ schedulertest
+Usage: schedulertest <proc1tix> <proc2tix> <duration>$ schedulertest 500 500 500
+pid of parent = 4
+testPid == 5
+tickets == 500
+testPid == 6
+tickets == 500
+runtime of Process5 == 160
+runtime of Process6 == 152
+$ 
