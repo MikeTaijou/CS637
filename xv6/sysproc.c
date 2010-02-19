@@ -5,6 +5,21 @@
 #include "proc.h"
 
 int
+sys_spork()
+{
+  int pid;
+  struct proc *np;
+  
+  void* newstack;
+
+  
+  if (argptr(0, &newstack, PAGE) < 0)
+    return -1;
+  
+
+}
+
+int
 sys_fork(void)
 {
   int pid;

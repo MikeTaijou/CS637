@@ -34,6 +34,100 @@ pinit(void)
   initlock(&proc_table_lock, "proc_table");
 }
 
+
+
+
+
+
+
+
+// Create a new process copying p as the parent.
+// Sets up stack to return as if from system call.
+// Caller must set state of returned proc to RUNNABLE.  UNFINISHED!
+// HOW DO WE PASS THE STACK?
+struct proc*
+sporkproc(struct proc *p, void*)
+{
+  int i;
+  struct proc *np;
+
+  // Allocate process.
+  if((np = allocproc()) == 0)
+    return 0;
+
+  // Allocate kernel stack.
+  if((np->kstack = kalloc(KSTACKSIZE)) == 0){
+    np->state = UNUSED;
+    return 0;
+  }
+  np->tf = (struct trapframe*)(np->kstack + KSTACKSIZE) - 1;
+
+  
+/*if(p){  // Copy process state from p.
+    np->parent = p;
+    memmove(np->tf, p->tf, sizeof(*np->tf));
+  
+    np->sz = p->sz;
+    if((np->mem = kalloc(np->sz)) == 0){
+      kfree(np->kstack, KSTACKSIZE);
+      np->kstack = 0;
+      np->state = UNUSED;
+      np->parent = 0;
+
+	np->tickets = 1;
+	numTickets += 1;
+
+      return 0;
+    }
+    memmove(np->mem, p->mem, np->sz);
+*/
+	if(p){ // Copy process state from p.
+		np->parent = p;
+    memmove(np->tf, p->tf, sizeof(*np->tf));
+  
+  	np->sz = p->sz;
+    /*
+if((np->mem = kalloc(np->sz)) == 0){
+kfree(np->kstack, KSTACKSIZE);
+np->kstack = 0;
+np->state = UNUSED;
+np->parent = 0;
+return 0;
+}
+memmove(np->mem, p->mem, np->sz);
+*/
+    np->mem = p->mem;
+
+
+    void* stackstart = p->mem + p->stack - PAGE; 
+    memmove(child_stack, stackstart, PAGE);
+    np->stack = (uint)(child_stack + PAGE) - (uint)np->mem;
+
+
+    for(i = 0; i < NOFILE; i++)
+      if(p->ofile[i])
+        np->ofile[i] = filedup(p->ofile[i]);
+    np->cwd = idup(p->cwd);
+  }
+
+  // Set up new context to start executing at forkret (see below).
+  memset(&np->context, 0, sizeof(np->context));
+  np->context.eip = (uint)forkret;
+  np->context.esp = (uint)np->tf;
+
+  // Clear %eax so that fork system call returns 0 in child.
+  np->tf->eax = 0;
+  return np;
+}
+
+
+
+
+
+
+
+
+
 // Look in the process table for an UNUSED proc.
 // If found, change state to EMBRYO and return it.
 // Otherwise return 0.

@@ -22,3 +22,4 @@
 #define SYS_mytime 21
 #define SYS_settickets 22
 #define SYS_getruntime 23
+#define SYS_spork	 24

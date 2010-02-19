@@ -520,7 +520,7 @@ procdump(void)
     cprintf("\n");
   }
 }
-
+//sets the number of tickets that process pid has.
 int
 setticks(int pid, int newTickets)
 {
@@ -544,7 +544,7 @@ setticks(int pid, int newTickets)
 
   return -1;
 }
-
+//returns the number of times process with pid was chosen by scheduler
 int getRunTimeOfProcess(int pid)
 {
   int i;

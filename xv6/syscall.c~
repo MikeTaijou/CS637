@@ -98,6 +98,7 @@ extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_mytime(void);
 extern int sys_settickets(void);
+extern int sys_getruntime(void);
 
 static int (*syscalls[])(void) = {
 [SYS_chdir]   sys_chdir,

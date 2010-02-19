@@ -21,4 +21,4 @@
 #define SYS_sleep  20
 #define SYS_mytime 21
 #define SYS_settickets 22
-#define SYS_getRunTime 23
+#define SYS_getruntime 23

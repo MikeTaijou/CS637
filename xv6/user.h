@@ -24,6 +24,7 @@ int sleep(int);
 int mytime(void);
 int settickets(int pid, int newtickets);
 int getruntime();
+int clone(void* newstack);
 
 // ulib.c
 int stat(char*, struct stat*);

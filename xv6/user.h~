@@ -23,7 +23,7 @@ char* sbrk(int);
 int sleep(int);
 int mytime(void);
 int settickets(int pid, int newtickets);
-int getRunTime();
+int getruntime();
 
 // ulib.c
 int stat(char*, struct stat*);

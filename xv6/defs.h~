@@ -91,7 +91,6 @@ int             piperead(struct pipe*, char*, int);
 int             pipewrite(struct pipe*, char*, int);
 
 // proc.c
-struct proc*		sporkproc(struct proc*, void* newstack)
 struct proc*    copyproc(struct proc*);
 struct proc*    curproc(void);
 void            exit(void);

@@ -99,6 +99,7 @@ extern int sys_write(void);
 extern int sys_mytime(void);
 extern int sys_settickets(void);
 extern int sys_getruntime(void);
+extern int sys_spork(void)
 
 static int (*syscalls[])(void) = {
 [SYS_chdir]   sys_chdir,
@@ -123,7 +124,8 @@ static int (*syscalls[])(void) = {
 [SYS_write]   sys_write,
 [SYS_mytime]  sys_mytime,
 [SYS_settickets] sys_settickets,
-[SYS_getruntime] sys_getruntime
+[SYS_getruntime] sys_getruntime,
+[SYS_spork]		sys_spork
 };
 
 void
